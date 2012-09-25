@@ -665,6 +665,26 @@ public class MemCachedClient {
 	public boolean set(String key, Object value, Date expiry, Integer hashCode) {
 		return client.set(key, value, expiry, hashCode);
 	}
+	
+	/**
+	 * Stores data on the server; the key, value, an expiration time, and
+	 * wheter or not primitives are set as strings.
+	 * 
+	 * @param key
+	 *            key to store data under
+	 * @param value
+	 *            value to store
+	 * @param expiry
+	 *            when to expire the record
+	 * @param hashCode
+	 *            if not null, then the int hashcode to use
+	 * @param primitiveAsString
+	 * 			  store this object as a string?
+	 * @return true, if the data was successfully stored
+	 */
+	public boolean set(String key, Object value, Date expiry, Integer hashCode, boolean asString) {
+		return client.set(key, value, expiry, hashCode, asString);
+	}
 
 	/**
 	 * Adds data to the server; only the key and the value are specified.
@@ -834,7 +854,7 @@ public class MemCachedClient {
 	 * @return true/false indicating success
 	 */
 	public boolean storeCounter(String key, Long counter, Date date, Integer hashCode) {
-		return set(key, counter, date, hashCode);
+		return set(key, counter, date, hashCode, true);
 	}
 
 	/**

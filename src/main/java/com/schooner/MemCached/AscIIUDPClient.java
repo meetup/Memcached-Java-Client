@@ -156,6 +156,11 @@ public class AscIIUDPClient extends MemCachedClient {
 	public boolean set(String key, Object value, Date expiry, Integer hashCode) {
 		return set("set", key, value, expiry, hashCode, 0L);
 	}
+	
+	public boolean set(String key, Object value, Date expiry, Integer hashCode, boolean asString) {
+		// primitiveAsString isn't being used in this class so drop it.
+		return set("set", key, value, expiry, hashCode, 0L);
+	}
 
 	public boolean add(String key, Object value) {
 		return set("add", key, value, null, null, 0L);
@@ -645,7 +650,7 @@ public class AscIIUDPClient extends MemCachedClient {
 	}
 
 	public boolean keyExists(String key) {
-		return (this.get(key, null) != null);
+		return (this.get(key, null, true) != null);
 	}
 
 	public Map<String, Map<String, String>> stats() {
